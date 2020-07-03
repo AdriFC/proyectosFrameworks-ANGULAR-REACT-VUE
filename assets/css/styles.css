@@ -326,3 +326,107 @@ textarea{
       border: none;
   }
 
+  /*RESPONSIVE*/ 
+
+  /*DESDE LA ANCHURA 0PX HASTA 1347PX DE PANTALLA*/
+  @media (max-width:1347px){
+      /*Se ejecutan estos estilos*/
+      .center{
+        width:85%;
+      }  
+  }
+
+  /*DESDE LA ANCHURA 0PX HASTA 1191PX DE PANTALLA*/
+  @media (max-width:1191px){
+    /*Se ejecutan estos estilos*/
+    .center{
+      width:95%;
+    }  
+
+    #menu ul{
+        width: auto;
+    }
+}
+
+/*DESDE LA ANCHURA 0PX HASTA 801PX DE PANTALLA*/
+@media (max-width:801px){
+    /*Se ejecutan estos estilos*/
+    #logo{
+        float: none;
+        width: 240px;
+        margin: 0px auto;
+        margin-top: 20px;
+    }
+
+    #menu,
+    #menu ul{
+        clear: both;
+        float:none;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        line-height: 45px;
+    }
+
+    #content{
+        float:none;
+        width: 100%;
+    }
+
+    #sidebar{
+        float:none;
+        width: 60%;
+        margin: 0px auto;
+        margin-bottom: 50px;
+    }
+
+    #slider h1{
+        padding-top: 115px;
+        font-size: 25px;
+    }
+
+    .mid-form{
+        width: 70%;
+    }
+}
+
+/*DESDE LA ANCHURA 0PX HASTA 460PX DE PANTALLA*/
+@media (max-width:460px){
+    /*Se ejecutan estos estilos*/
+    #header{
+        min-height: 130px;
+        overflow: hidden;
+    }
+
+    #menu,
+    #menu ul{
+        line-height: 50px;
+    }
+
+    #menu ul li{
+        margin-left: 7px;
+        margin-right: 7px;
+    }
+
+    #slider{
+        height: 180px;
+    }
+
+    #slider h1{
+        font-size: 19px;
+        padding-top: 30px;
+    }
+
+    #slider .btn-white{
+        margin-top: 20px;
+    }
+
+    #slider .slider-small{
+        height: 100px;
+    }
+
+    #slider .slider-small h1{
+        padding-top: 35px;
+    }
+}
+

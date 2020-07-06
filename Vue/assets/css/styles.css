@@ -15,7 +15,7 @@ body{
     width: 100%;
     background: white;
     border-bottom: 1px solid #ccc;
-    border-top: 5px solid #61dafb;
+    border-top: 5px solid rgb(10, 156, 59);
 }
 
 .center{
@@ -35,16 +35,25 @@ body{
     float: left;
     height: 60px;
     margin-top: -9px;
-    margin-right: 10px;
-    animation: girar infinite 30s linear;
+    margin-right: 20px;
+    animation: latir infinite 5s linear;
 }
 
-@keyframes girar{
-    from{
-        transform: rotate(0deg);
+@keyframes latir{
+    0%{
+        transform: scale(1,1);
     }
-    to{
-        transform: rotate(360deg);
+
+    50%{
+        transform: scale(1.1,1.1);
+    }
+
+    55%{
+        transform: scale(0.9,0.9);
+    }
+
+    100%{
+        transform: scale(1,1);
     }
 }
 
@@ -81,7 +90,7 @@ body{
 }
 
 #menu a:hover{
-    color: #3cb2d3;
+    color: rgb(226, 7, 7);
 }
 
 #slider{
@@ -93,8 +102,16 @@ body{
 
     /*DEGRADADO CSS*/
 
-    background: rgb(57,99,108);
-    background: radial-gradient(circle, rgba(57,99,108,1) 0%, rgba(60,178,211,1) 35%, rgba(0,212,255,1) 100%);
+    background: rgba(190,228,203,1);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(190,228,203,1) 1%, rgba(198,231,209,1) 12%, rgba(96,203,126,1) 53%, rgba(73,197,108,1) 62%, rgba(73,197,108,1) 68%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%, rgba(190,228,203,1)), color-stop(12%, rgba(198,231,209,1)), color-stop(53%, rgba(96,203,126,1)), color-stop(62%, rgba(73,197,108,1)), color-stop(68%, rgba(73,197,108,1)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(190,228,203,1) 1%, rgba(198,231,209,1) 12%, rgba(96,203,126,1) 53%, rgba(73,197,108,1) 62%, rgba(73,197,108,1) 68%);
+    background: -o-radial-gradient(center, ellipse cover, rgba(190,228,203,1) 1%, rgba(198,231,209,1) 12%, rgba(96,203,126,1) 53%, rgba(73,197,108,1) 62%, rgba(73,197,108,1) 68%);
+    background: -ms-radial-gradient(center, ellipse cover, rgba(190,228,203,1) 1%, rgba(198,231,209,1) 12%, rgba(96,203,126,1) 53%, rgba(73,197,108,1) 62%, rgba(73,197,108,1) 68%);
+    background: radial-gradient(ellipse at center, rgba(190,228,203,1) 1%, rgba(198,231,209,1) 12%, rgba(96,203,126,1) 53%, rgba(73,197,108,1) 62%, rgba(73,197,108,1) 68%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bee4cb', endColorstr='#49c56c', GradientType=1 );
+
+    
 }
 
 #slider h1{
@@ -330,103 +347,111 @@ textarea{
 
   /*DESDE LA ANCHURA 0PX HASTA 1347PX DE PANTALLA*/
   @media (max-width:1347px){
-      /*Se ejecutan estos estilos*/
-      .center{
-        width:85%;
-      }  
-  }
-
-  /*DESDE LA ANCHURA 0PX HASTA 1191PX DE PANTALLA*/
-  @media (max-width:1191px){
     /*Se ejecutan estos estilos*/
     .center{
-      width:95%;
+      width:85%;
     }  
+}
 
-    #menu ul{
+/*DESDE LA ANCHURA 0PX HASTA 1191PX DE PANTALLA*/
+@media (max-width:1191px){
+  /*Se ejecutan estos estilos*/
+  .center{
+    width:95%;
+  }  
+
+  #menu ul{
+      width: auto;
+  }
+}
+
+@media (max-width:974px){
+    #logo{
+        width: 275px;
+    }
+    #menu{
         width: auto;
     }
 }
 
 /*DESDE LA ANCHURA 0PX HASTA 801PX DE PANTALLA*/
 @media (max-width:801px){
-    /*Se ejecutan estos estilos*/
-    #logo{
-        float: none;
-        width: 240px;
-        margin: 0px auto;
-        margin-top: 20px;
-    }
+  /*Se ejecutan estos estilos*/
+  #logo{
+      float: none;
+      /*width: 240px;*/
+      margin: 0px auto;
+      margin-top: 20px;
+  }
 
-    #menu,
-    #menu ul{
-        clear: both;
-        float:none;
-        width: 100%;
-        margin: 0px;
-        padding: 0px;
-        line-height: 45px;
-    }
+  #menu,
+  #menu ul{
+      clear: both;
+      float:none;
+      width: 100%;
+      margin: 0px;
+      padding: 0px;
+      line-height: 45px;
+  }
 
-    #content{
-        float:none;
-        width: 100%;
-    }
+  #content{
+      float:none;
+      width: 100%;
+  }
 
-    #sidebar{
-        float:none;
-        width: 60%;
-        margin: 0px auto;
-        margin-bottom: 50px;
-    }
+  #sidebar{
+      float:none;
+      width: 60%;
+      margin: 0px auto;
+      margin-bottom: 50px;
+  }
 
-    #slider h1{
-        padding-top: 115px;
-        font-size: 25px;
-    }
+  #slider h1{
+      padding-top: 115px;
+      font-size: 25px;
+  }
 
-    .mid-form{
-        width: 70%;
-    }
+  .mid-form{
+      width: 70%;
+  }
 }
 
 /*DESDE LA ANCHURA 0PX HASTA 460PX DE PANTALLA*/
 @media (max-width:460px){
-    /*Se ejecutan estos estilos*/
-    #header{
-        min-height: 130px;
-        overflow: hidden;
-    }
+  /*Se ejecutan estos estilos*/
+  #header{
+      min-height: 130px;
+      overflow: hidden;
+  }
 
-    #menu,
-    #menu ul{
-        line-height: 50px;
-    }
+  #menu,
+  #menu ul{
+      line-height: 50px;
+  }
 
-    #menu ul li{
-        margin-left: 7px;
-        margin-right: 7px;
-    }
+  #menu ul li{
+      margin-left: 7px;
+      margin-right: 7px;
+  }
 
-    #slider{
-        height: 180px;
-    }
+  #slider{
+      height: 180px;
+  }
 
-    #slider h1{
-        font-size: 19px;
-        padding-top: 30px;
-    }
+  #slider h1{
+      font-size: 19px;
+      padding-top: 30px;
+  }
 
-    #slider .btn-white{
-        margin-top: 20px;
-    }
+  #slider .btn-white{
+      margin-top: 20px;
+  }
 
-    #slider .slider-small{
-        height: 100px;
-    }
+  #slider .slider-small{
+      height: 100px;
+  }
 
-    #slider .slider-small h1{
-        padding-top: 35px;
-    }
+  #slider .slider-small h1{
+      padding-top: 35px;
+  }
 }
-

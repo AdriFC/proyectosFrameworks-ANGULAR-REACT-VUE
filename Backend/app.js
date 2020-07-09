@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 //Cargar ficheros rutas
+var article_routes = require('./routes/article');
 
 //Cargar MiddLewares
 app.use(bodyParser.urlencoded({extended:false}));
@@ -15,15 +16,9 @@ app.use(bodyParser.json());
 
 //Activar el CORS (Permitir peticiones desde frontEnd)
 
-//Añadir prefijos a rutas
+//Añadir prefijos a rutas/cargar rutas
+app.use('/api', article_routes);
 
-//Ruta o método de prueba para el API REST
-app.get('/probando', (req, res) =>{
-    return res.status(200).send({
-        curso: 'Master en frameworks JS',
-        autor: 'Victor Robles'
-    });
-});
 
 //Exportar módulo (fichero actual)
 module.exports = app;

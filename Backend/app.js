@@ -1,4 +1,5 @@
 'use strict'
+/*"jshint node": true*/
 
 //Cargar módulos de Node para crear servidor
 var express = require('express');

@@ -218,13 +218,21 @@ var controller = {
     },
 
     upload: (req, res) => {
-        //Configurar el módulo connect multiparty router/article.js (hecho)
+        //Configurar el módulo connect multiparty (Multer en este caso) router/article.js (hecho)
 
         //Recoger el fichero de la petición
         var file_name = 'Imagen no subida...';
-        console.log(req.files);
 
+        if(!req.files){
+            return res.status(404).send({
+                status: 'error',
+                message: file_name
+            });
+        }
+        
         //Conseguir el nombre y la extensión del archivo
+        var file_path = req.files.file0.path;
+        var file_split = file_path.split('\\');
 
         //Comprobar la extensión (solo imágenes), si no es válida borrar el fichero
 
@@ -232,11 +240,11 @@ var controller = {
 
         //Buscar el artículo, asignarle el nombre de la imagen y actualizarlo
         return res.status(404).send({
-            fichero: req.files
+            fichero: req.files,
+            split: file_split
         });
     }
 
 }; //end controller
 
 module.exports = controller;
-

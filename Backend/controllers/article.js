@@ -220,6 +220,7 @@ var controller = {
     upload: (req, res) => {
         //Configurar el módulo connect multiparty (Multer en este caso) router/article.js (hecho)
 
+        /*
         //Recoger el fichero de la petición
         var file_name = 'Imagen no subida...';
 
@@ -231,6 +232,7 @@ var controller = {
         }
         
         //Conseguir el nombre y la extensión del archivo
+        
         var file_path = req.files.file0.path;
         var file_split = file_path.split('\\');
 
@@ -243,6 +245,48 @@ var controller = {
             fichero: req.files,
             split: file_split
         });
+        */
+
+        //Respuesta Victor curso
+        if(req.file){
+
+            // console.log(req.file);
+        
+            var file_path = req.file.path;
+            var file_split = file_path.split('\\');       
+            var file_name = file_split[2];       
+            var ext_split = req.file.originalname.split('\.');       
+            var file_ext = ext_split[1]
+        
+            if(file_ext== 'png' || file_ext== 'gif' || file_ext== 'jpg'){
+        
+              Album.findByIdAndUpdate(albumId, {image:file_name}, (err, albumUpdated) => {
+        
+                if(!albumUpdated){
+        
+                  res.status(404).send({message: 'No se ha podido actualizar el album'});
+        
+                }else{
+        
+                  res.status(200).send({album: albumUpdated});
+        
+                }
+        
+              })
+        
+            }else{
+        
+              res.status(200).send({message: 'Extension del archivo no valida'});
+        
+            }
+        
+            console.log(file_path);
+        
+          }else{
+        
+            res.status(200).send({message: 'No has subido ninguna imagen..'});
+        
+        }
     }
 
 }; //end controller

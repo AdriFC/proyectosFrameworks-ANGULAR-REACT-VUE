@@ -20,14 +20,13 @@ app.use(bodyParser.json()); //Convertir peticiones a JSON (objecto JS)
 //Añadir prefijos a rutas
 
 //Ruta o método de prueba para el API REST
-app.get('/probando2'/*ruta*/, (req/*recibo*/ , res/*devuelvo*/)=>{
+app.post('/datos-curso'/*ruta*/, (req/*recibo*/ , res/*devuelvo*/)=>{
+    var hola = req.body.hola;
     return res.status(200).send({
         curso: 'Master en frameworks JS',
-        autor: 'Víctor Robles'
-
-    });
-        
-    
+        autor: 'Víctor Robles',
+        hola
+    });    
 });
 
 //Exportar módulo (fichero actual), poder cargar app.js en index

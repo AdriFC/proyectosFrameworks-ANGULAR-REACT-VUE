@@ -14,7 +14,7 @@ mongoose.set('useFindAndModify',false);
 mongoose.Promise = global.Promise; 
 
 //Conexión a MongoDB (Promesa que contiene función de callback)
-mongoose.connect('mongodb://localhost:27017/api_rest_blob'/*url*/,{useNewUrlParser: true, useUnifiedTopology: true}/*opciones*/)
+mongoose.connect('mongodb://localhost:27017/api_rest_blog'/*url*/,{useNewUrlParser: true, useUnifiedTopology: true}/*opciones*/)
     .then(()=>{ 
         console.log('Conexión establecida correctamente!!');
 

@@ -3,7 +3,7 @@
 'use strict'  //Mejores prácticas de desarrollo con JS
 
 //Importar módulos
-var mongoose = require('mongoose'); //Cargar módulo mongoose
+var mongoose = require('mongoose'); //Cargar módulo mongoose, ORM MongoDB
 var app = require('./app'); //Carga archivo app (servidor web)
 var port = 3900; //Puerto para esta aplicación
 

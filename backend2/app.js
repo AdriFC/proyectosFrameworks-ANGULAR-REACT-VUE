@@ -19,20 +19,7 @@ app.use(bodyParser.json()); //Convertir peticiones a JSON (objecto JS)
 //Cargar el CORS (Permite peticiones desde frontEnd)
 
 //Añadir prefijos a rutas / Cargar rutas
-app.use('/', article_routes);
-
-//Ruta o método de prueba para el API REST, mejor crear archivo exclusivo para rutas
-
-/*
-app.post('/datos-curso'ruta, (req , res/)=>{ //Ruta, req=recibido por servidor res=respondido
-    var hola = req.body.hola;
-    return res.status(200).send({
-        curso: 'Master en frameworks JS',
-        autor: 'Víctor Robles',
-        hola
-    });    
-});
-*/
+app.use('/api',article_routes);
 
 //Exportar módulo (fichero actual), poder cargar app.js en index
 //Servidor pueda escuchar

@@ -1,4 +1,4 @@
-//Clase que hace de molde para crear artículos, permite conectar a la colección de artículos en la BD
+//Clase que hace de molde para crear objectos, permite conectar a la colección de artículos en la BD
 
 'use strict'
 

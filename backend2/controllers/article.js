@@ -139,9 +139,110 @@ var controller = {
                 status: 'success',
                 article
             });
+        });  
+    },
 
-        });
+    //Método actualizar datos de artículo
+    update: (req,res) =>{
+
+        //Recoger el id del artículo por la url
+        var articleId = req.params.id;
+
+        //Recoger los datos que llegan por put
+        var params = req.body;
+
+        //Validar datos
+        try{
+            var validate_title = !validator.isEmpty(params.title); //True si no está vacio params title
+            var validate_content = !validator.isEmpty(params.content); //True si no está vacio params content
+
+        }catch(err){
+            return res.status(200).send({
+                status: 'error',
+                message: 'Faltan datos por enviar!'
+            });
+        }
+
+        if(validate_title && validate_content){
+            //Find and update
+            Article.findByIdAndUpdate({_id: articleId}, params,{new:true},/*Devuelve el objeto actualizado*/ (err, articleUpdated) =>{
+                if(err){
+                    return res.status(200).send({
+                        status: 'error',
+                        message: 'Error al actualizar!'
+                    });
+                }
+
+                if(!articleUpdated){
+                    return res.status(404).send({
+                        status: 'error',
+                        message: 'No existe el artículo!'
+                    });
+                }
+
+                return res.status(200).send({
+                    status: 'success',
+                    article: articleUpdated
+                });
+            });
+        }else{
+            //Devolver respuesta
+            return res.status(200).send({
+              status: 'error',
+              message: 'La validación no es correcta!'
+            });
+        }
         
+    },
+
+    //Método borrar artículos
+    delete: (req,res) => {
+
+        //Recoger el id de la url
+        var articleId = req.params.id;
+
+        //Find and delete
+        Article.findOneAndDelete({_id: articleId}, (err, articleRemoved) => {
+            if(err){
+                return res.status(500).send({
+                    status: 'error',
+                    message:'Error al borrar!'
+                });
+            }
+
+            if(!articleRemoved){
+                return res.status(404).send({
+                    status: 'error',
+                    message:'No se borró el artículo, posiblemente no exista!'
+                });
+            }
+
+            return res.status(404).send({
+                status: 'success',
+                article: articleRemoved
+            });
+        });
+    },
+
+    upload: (req,res) => {
+
+        //Configurar módulo connect multiparty router/article.js (hecho)
+
+        //Recoger el fichero de la petición
+        var file_name = 'Imagen no subida...';
+        console.log(req.files);
+
+        //Conseguir nombre y extensión del archivo
+
+        //Comprobar la extensión, solo imágenes, si no es válida borrar fichero
+
+        //Si todo es válido
+
+        //Buscar el artículo, asignarle el nombre de la imagen y actualizarlo
+
+        return res.status(404).send({
+            fichero: req.files
+        });
     }
 
 }; //End controller

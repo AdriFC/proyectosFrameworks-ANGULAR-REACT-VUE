@@ -225,24 +225,51 @@ var controller = {
     },
 
     upload: (req,res) => {
-
+        
         //Configurar módulo connect multiparty router/article.js (hecho)
 
         //Recoger el fichero de la petición
         var file_name = 'Imagen no subida...';
-        console.log(req.files);
+        
+        if(!req.files){
+            return res.status(404).send({
+                status:'error',
+                message: file_name
+            });
+        }
 
         //Conseguir nombre y extensión del archivo
+        var file_path = req.files.file0.path;
+        var file_split = file_path.split('\\');
+
+        /*
+        ADVERTENCIA linux o mac:
+        var file_split = file_path.split('/');
+        */
+
+        //Nombre del archivo
+        var file_name = file_split[2];
+
+        //Extensión del fichero
+        var extension_split = file_name.split('\.');
+        var file_ext = extension_split[1];
 
         //Comprobar la extensión, solo imágenes, si no es válida borrar fichero
+        if(file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'gif'){
+            //borrar el archivo subido
+        }else{
+            //Si todo es válido
 
-        //Si todo es válido
+            //Buscar el artículo, asignarle el nombre de la imagen y actualizarlo
+        }
 
-        //Buscar el artículo, asignarle el nombre de la imagen y actualizarlo
-
+        
         return res.status(404).send({
-            fichero: req.files
+            fichero: req.files,
+            split: file_split,
+            file_ext
         });
+        
     }
 
 }; //End controller

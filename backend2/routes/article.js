@@ -20,5 +20,6 @@ router.put('/article/:id', ArticleController.update);
 router.delete('/article/:id', ArticleController.delete);
 router.post('/upload-image/:id', md_upload, ArticleController.upload); //md_upload middleware para procesar subida de archivos
 
+
 //Exportar módulo para poder usarlo en app.js
 module.exports = router;

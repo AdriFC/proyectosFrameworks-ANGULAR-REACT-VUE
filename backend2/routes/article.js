@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 
   destination(req, file, cb) {
 
-    cb(null, './upload/articles');
+    cb(null, './uploads/albums');
 
   },
 
@@ -40,7 +40,7 @@ const storage = multer.diskStorage({
 
 });
 
-var mul_upload = multer({dest: './upload/articles',storage});
+var mul_upload = multer({dest: './uploads/albums',storage});
 
 //Rutas de prueba
 router.post('/datos-curso', ArticleController.datosCurso);
@@ -54,7 +54,8 @@ router.put('/article/:id', ArticleController.update);
 router.delete('/article/:id', ArticleController.delete);
 //router.post('/upload-image/:id', mul_upload, ArticleController.upload); //md_upload middleware para procesar subida de archivos
 //router.post('/upload-image-album/:id', [md_auth.ensureAuth, mul_upload.single('image')], ArticleController.upload);
-router.post('/upload-image/:id', mul_upload.single('file0'), ArticleController.upload);
+//router.post('/upload-image/:id', mul_upload.single('file0'), ArticleController.upload);
+router.post('/upload-image-album/:id', [ mul_upload.single('image')], ArticleController.upload);
 
 //Exportar módulo para poder usarlo en app.js
 module.exports = router;

@@ -231,44 +231,49 @@ var controller = {
         //Recoger el fichero de la petición
         var file_name = 'Imagen no subida...';
         
-        if(!req.files){
-            return res.status(404).send({
-                status:'error',
-                message: file_name
-            });
-        }
+        if(req.file){
 
-        //Conseguir nombre y extensión del archivo
-        var file_path = req.files.file0.path;
-        var file_split = file_path.split('\\');
-
-        /*
-        ADVERTENCIA linux o mac:
-        var file_split = file_path.split('/');
-        */
-
-        //Nombre del archivo
-        var file_name = file_split[2];
-
-        //Extensión del fichero
-        var extension_split = file_name.split('\.');
-        var file_ext = extension_split[1];
-
-        //Comprobar la extensión, solo imágenes, si no es válida borrar fichero
-        if(file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'gif'){
-            //borrar el archivo subido
-        }else{
-            //Si todo es válido
-
-            //Buscar el artículo, asignarle el nombre de la imagen y actualizarlo
-        }
-
+            // console.log(req.file);
         
-        return res.status(404).send({
-            fichero: req.files,
-            split: file_split,
-            file_ext
-        });
+            var file_path = req.file.path;
+        
+            var file_split = file_path.split('\\');
+        
+            var file_name = file_split[2];
+        
+            var ext_split = req.file.originalname.split('\.');
+        
+            var file_ext = ext_split[1]
+        
+            if(file_ext== 'png' || file_ext== 'gif' || file_ext== 'jpg'){
+        
+              Album.findByIdAndUpdate(albumId, {image:file_name}, (err, albumUpdated) => {
+        
+                if(!albumUpdated){
+        
+                  res.status(404).send({message: 'No se ha podido actualizar el album'});
+        
+                }else{
+        
+                  res.status(200).send({album: albumUpdated});
+        
+                }
+        
+              })
+        
+            }else{
+        
+              res.status(200).send({message: 'Extension del archivo no valida'});
+        
+            }
+        
+            console.log(file_path);
+        
+          }else{
+        
+            res.status(200).send({message: 'No has subido ninguna imagen..'});
+        
+          }
         
     }
 

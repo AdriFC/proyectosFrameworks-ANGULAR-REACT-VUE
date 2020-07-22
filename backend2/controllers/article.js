@@ -5,7 +5,8 @@
 //Importar módulos necesarios
 var validator = require('validator'); //librería instalada que valida formularios enviados por cliente
 var Article = require('../models/article') //Importar modelo, clase para crear objetos y guardarlos en bbdd
-
+var fs = require('fs'); //fileSystem permite eliminar archivos de nuestro sistema de ficheros (Pertenece a Nodejs)
+var path = require('path'); //sirve para obtener la ruta o direccion de un archivo dentro del servidor (Pertebece a Nodejs)
 
 
 var controller = {
@@ -229,17 +230,17 @@ var controller = {
         //Configurar módulo connect multiparty router/article.js (hecho)
 
         //Recoger el fichero de la petición
-        //var file_name = 'Imagen no subida...';
+        var file_name = 'Imagen no subida...';
         
-        if(!req.files){
+        if(!req.file){
             return res.status(404).send({
                 status:'error',
                 message: file_name
             });
         }
-
+        
         //Conseguir nombre y extensión del archivo
-        var file_path = req.files.file0.path;
+        var file_path = req.file.path;
         var file_split = file_path.split('\\');
 
         /*
@@ -253,6 +254,7 @@ var controller = {
         //Extensión del fichero
         var extension_split = file_name.split('\.');
         var file_ext = extension_split[1];
+        var articleID = req.params.id;
 
         //Comprobar la extensión, solo imágenes, si no es válida borrar fichero
         if(file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'gif'){

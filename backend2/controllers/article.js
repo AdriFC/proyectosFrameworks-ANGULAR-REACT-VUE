@@ -7,6 +7,7 @@ var validator = require('validator'); //librería instalada que valida formulari
 var Article = require('../models/article') //Importar modelo, clase para crear objetos y guardarlos en bbdd
 var fs = require('fs'); //fileSystem permite eliminar archivos de nuestro sistema de ficheros (Pertenece a Nodejs)
 var path = require('path'); //sirve para obtener la ruta o direccion de un archivo dentro del servidor (Pertebece a Nodejs)
+const { exists } = require('../models/article');
 
 
 var controller = {
@@ -259,17 +260,82 @@ var controller = {
         //Comprobar la extensión, solo imágenes, si no es válida borrar fichero
         if(file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'gif'){
             //borrar el archivo subido
+            fs.unlink(file_path, (err) =>{
+                return res.status (200).send({
+                    status:'error',
+                    message:'La extensión de la imagen no es válida!'
+                });
+            });
         }else{
-            //Si todo es válido
+             //Si todo es válido, sacar id de la url
+             var articleId = req.params.id;
 
-            //Buscar el artículo, asignarle el nombre de la imagen y actualizarlo
-        }
+             //Buscar el artículo, asignarle el nombre de la imagen y actualizarlo
+            Article.findOneAndUpdate({_id: articleID}, {image: file_name}, {new:true}, (err, articleUpdated) =>{
 
-        return res.status(404).send({
-            fichero: req.files,
-            split: file_split,
-            file_ext
+                if(err || !articleUpdated){
+                    return res.status (200).send({
+                        status: 'error',
+                        message: 'Error al guardar la imagen de artículo!'
+                    });
+                }
+
+                return res.status(200).send({
+                    status: 'success',
+                    article: articleUpdated
+                });
+            });  
+        } 
+    }, //End upload file
+
+    getImage: (req, res) => {
+        //Sacar fichero que nos llega por la url
+        var file = req.params.image
+        var path_file = 'upload/articles/'+file;
+
+        //Comprobar si el fichero existe
+        fs.exists(path_file, (exists) => {
+            console.log(exists);
+            if(exists){
+                return res.sendFile(path.resolve(path_file));
+            }else{
+                return res.status (404).send({
+                    status: 'error',
+                    message: 'La imagen no existe!!'
+                });
+            }
         });
+    },
+
+    search: (req, res) => {
+        //Sacar el string a buscar
+        var searchString = req.params.search;
+
+        //Find or
+        Article.find({"$or": [
+			{"title": {"$regex" : searchString, "$options" : "i"}},
+			{"content": {"$regex" : searchString, "$options" : "i"}}
+			//Si el searchString esta contenido dentro de title o content entonces devuelve los articulos que coincidan
+        ]})
+        .sort([['date', 'descending']])
+		.exec((err, articles) => {
+			if(err){
+				return res.status(500).send({
+					status: 'error',
+					message: 'Error en la peticion'
+				});
+			}
+			if(!articles || articles.length <= 0){
+				return res.status(404).send({
+					status: 'error',
+					message: 'No se encontraron resultados'
+				});
+			}
+			return res.status(200).send({
+				status: 'success',
+				articles
+			});
+		});
         
     }
 

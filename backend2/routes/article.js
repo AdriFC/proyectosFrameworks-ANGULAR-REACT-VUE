@@ -53,6 +53,8 @@ router.delete('/article/:id', ArticleController.delete);
 //router.post('/upload-image/:id', mul_upload, ArticleController.upload); //md_upload middleware para procesar subida de archivos
 //router.post('/upload-image-album/:id', [md_auth.ensureAuth, mul_upload.single('image')], ArticleController.upload);
 router.post('/upload-image/:id?', mul_upload.single('file0'), ArticleController.upload);
+router.get('/get-image/:image', ArticleController.getImage);
+router.get('/search/:search', ArticleController.search);
 
 //Exportar módulo para poder usarlo en app.js
 module.exports = router;

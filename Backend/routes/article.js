@@ -1,64 +1,60 @@
-"use strict";
-/*"jshint node": true*/
+//Archivo para crear las rutas
 
-var express = require("express");
-var ArticleController = require("../controllers/article");
+'use strict'
 
-var router = express.Router();
+var express = require ('express'); //Cargar el módulo de express
+var ArticleController = require ('../controllers/article'); //Cargar el controlador ya creado
+var router = express.Router(); //Llamar al router de express para crear rutas
+//var multipart = require ('connect-multiparty') //Cargar módulo multiparty (uploads)
+//var md_upload = multipart ({uploadDir: './upload/articles'}); //connect devuelve 1 MiddLeware
 
-/*
- //Con multiparty (tutorial) no me funciona
-var multipart = require ('connect-multiparty');
-var md_upload = multipart ({ uploadDir: './upload/articles'});
-*/
+var crypto = require('crypto')
 
-/*
-//Hecho con Multer (visto en stackoverflow)
-var multer = require("multer");
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./upload/articles");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + ".jpg"); //Appending .jpg
-  },
-});
-var upload = multer({ storage: storage });
-*/
-
-//Hecho con Multer (comentario victor, curso)
-var crypto = require('crypto');
 var multer = require('multer');
+
 const storage = multer.diskStorage({
 
   destination(req, file, cb) {
-    cb(null, './uploads/albums');
+
+    cb(null, './upload/articles');
+
   },
 
   filename(req, file = {}, cb) {
+
     const { originalname } = file;
+
     const fileExtension = (originalname.match(/\.+[\S]+$/) || [])[0];
 
     // cb(null, `${file.fieldname}__${Date.now()}${fileExtension}`);
-  crypto.pseudoRandomBytes(16, function (err, raw) {
-    cb(null, raw.toString('hex') + Date.now() + fileExtension);
+
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+
+      cb(null, raw.toString('hex') + Date.now() + fileExtension);
+
     });
+
   },
+
 });
-var mul_upload = multer({dest: './uploads/albums',storage});
+
+var mul_upload = multer({dest: './upload/articles',storage});
 
 //Rutas de prueba
-router.post("/datos-curso", ArticleController.datosCurso);
-router.get("/test-de-controlador", ArticleController.test);
+router.post('/datos-curso', ArticleController.datosCurso);
+router.get('/test-de-controlador', ArticleController.test);
 
 //Rutas útiles
-router.post("/save", ArticleController.save);
-router.get("/articles/:last?", ArticleController.getArticles);
-router.get("/article/:id", ArticleController.getArticle);
-router.put("/article/:id", ArticleController.update);
-router.delete("/article/:id", ArticleController.delete);
-//router.post ('/upload-image/:id', md_upload, ArticleController.upload); //Multiparty
-//router.post("/upload-image/:id", upload.any(), ArticleController.upload); //Multer
-router.post ('/upload-image/:id', mul_upload, ArticleController.upload); //Multer(victor)
+router.post('/save', ArticleController.save);
+router.get('/articles/:last?', ArticleController.getArticles); //:last? parámetro opcional
+router.get('/article/:id', ArticleController.getArticle);
+router.put('/article/:id', ArticleController.update);
+router.delete('/article/:id', ArticleController.delete);
+//router.post('/upload-image/:id', mul_upload, ArticleController.upload); //md_upload middleware para procesar subida de archivos
+//router.post('/upload-image-album/:id', [md_auth.ensureAuth, mul_upload.single('image')], ArticleController.upload);
+router.post('/upload-image/:id?', mul_upload.single('file0'), ArticleController.upload);
+router.get('/get-image/:image', ArticleController.getImage);
+router.get('/search/:search', ArticleController.search);
 
+//Exportar módulo para poder usarlo en app.js
 module.exports = router;

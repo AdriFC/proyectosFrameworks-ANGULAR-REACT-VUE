@@ -1,25 +1,33 @@
-'use strict'
-/*"jshint node": true*/
+//Fichero  para crear el servidor web
 
-//Cargar módulos de Node para crear servidor
-var express = require('express');
-var bodyParser = require('body-parser');
+'use strict' //Mejores prácticas de desarrollo con JS
 
-//Ejecutar express (http)
+//Cargar módulos de Node para crear el servidor
+var express = require('express'); //Permitir trabajo con HTTP
+var bodyParser = require('body-parser'); //Recibir peticiones y convertir datos a JSON
+
+//Ejecutar express (trabajar http)
 var app = express();
 
-//Cargar ficheros rutas
+//Cargar ficheros de rutas
 var article_routes = require('./routes/article');
 
-//Cargar MiddLewares
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+//Cargar MiddLewares (algo que se ejecuta antes de cargar una ruta o url)
+app.use(bodyParser.urlencoded({extended:false})); //MW que trae el body-parser (utilizar el body-parser)
+app.use(bodyParser.json()); //Convertir peticiones a JSON (objecto JS)
 
-//Activar el CORS (Permitir peticiones desde frontEnd)
+//Cargar el CORS (Permite peticiones desde frontEnd)
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
 
-//Añadir prefijos a rutas/cargar rutas
-app.use('/api', article_routes);
+//Añadir prefijos a rutas / Cargar rutas
+app.use('/api',article_routes);
 
-
-//Exportar módulo (fichero actual)
+//Exportar módulo (fichero actual), poder cargar app.js en index
+//Servidor pueda escuchar
 module.exports = app;

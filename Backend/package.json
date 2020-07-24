@@ -1,21 +1,33 @@
 {
-  "name": "backend",
+  "name": "backend2",
   "version": "1.0.0",
-  "description": "Api RESTful del Master en Frameworks para JS de Victor Robles",
+  "description": "API REST Full para el curso de frameworks JS",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
-  "author": "AdriFC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdriFC/MasterJS_maquetacion.git"
+  },
+  "author": "Adri FC",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AdriFC/MasterJS_maquetacion/issues"
+  },
+  "homepage": "https://github.com/AdriFC/MasterJS_maquetacion#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect-multiparty": "^2.2.0",
+    "crypto-js": "^4.0.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.22",
+    "mongoose": "^5.9.25",
     "multer": "^1.4.2",
-    "nodemon": "^2.0.4",
+    "path": "^0.12.7",
     "validator": "^13.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

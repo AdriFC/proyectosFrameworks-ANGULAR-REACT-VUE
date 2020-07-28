@@ -94,6 +94,24 @@ body{
     color: rgb(226, 7, 7)!important;
 }
 
+.year-green{
+    display:block;
+    background: green;
+    color: white;
+    padding: 5px;
+    width: 121px;
+    text-align: center;
+}
+
+.year-red{
+    display:block;
+    background: red;
+    color: white;
+    padding: 5px;
+    width: 121px;
+    text-align: center;
+}
+
 #slider{
     width: 100%;
     height: 350px;

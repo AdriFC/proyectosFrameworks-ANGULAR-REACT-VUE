@@ -8,11 +8,12 @@
                 Pelicula Favorita
             </h2>
             <h4>
-                {{favorita.title}}
+                {{favorita.title | lowercase}}
             </h4>
-            <h5>
-                {{favorita.year}}
-            </h5>
+            <h4>
+                {{favorita.year | espar }}
+            </h4>
+            <h5>{{this.fecha | date: 'dd/MM/yyyy'}}</h5>
             
         </div>
 

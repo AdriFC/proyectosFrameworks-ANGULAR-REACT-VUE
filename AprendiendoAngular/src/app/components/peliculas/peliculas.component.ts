@@ -12,6 +12,7 @@ export class PeliculasComponent implements OnInit, DoCheck, OnDestroy {
   public titulo: string;
   public peliculas: Pelicula [];
   public favorita: Pelicula;
+  public fecha: any;
 
   constructor() {                         //Diseñado para asignar valor a las propiedades de la clase
     this.titulo = "componente peliculas";
@@ -22,6 +23,7 @@ export class PeliculasComponent implements OnInit, DoCheck, OnDestroy {
       new Pelicula("Solo en casa 2", 1991, "https://www.lavanguardia.com/r/GODO/LV/p0/WebSite/2018/04/23/Recortada/featuredImage-17154-macaulay-culkin-confiesa-que-no-es-capaz-de-ver-la-pelicula-solo-en-casa-992x558@LaVanguardia-Web.jpg"),
       
     ];
+    this.fecha = new Date(2020,8,12);
   }
 
   ngOnInit() {

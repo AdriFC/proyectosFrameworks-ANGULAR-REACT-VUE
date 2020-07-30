@@ -17,6 +17,7 @@ import { PaginaComponent } from './components/pagina/pagina.component';
 import { ErrorComponent } from './components/error/error.component';
 import { PeliculaComponent } from './components/pelicula/pelicula.component';
 import { EsParPipe } from './pipes/espar.pipe';
+import { FormsModule } from '@angular/forms' //Módulo para que funcione formulario
 
 
 @NgModule({
@@ -37,9 +38,10 @@ import { EsParPipe } from './pipes/espar.pipe';
     PeliculaComponent,
     EsParPipe
   ],
-  imports: [
+  imports: [         //Módulos que cargamos de Angular
     BrowserModule,
-    routing
+    routing,
+    FormsModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

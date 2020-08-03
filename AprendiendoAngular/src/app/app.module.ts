@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { routing, appRoutingProviders } from './app.routing';
+import { MomentModule } from 'angular2-moment';
 
 import { AppComponent } from './app.component';
 import { MiComponente } from './components/mi-componente/mi-componente.component';
@@ -19,6 +20,10 @@ import { PeliculaComponent } from './components/pelicula/pelicula.component';
 import { EsParPipe } from './pipes/espar.pipe';
 import { FormsModule } from '@angular/forms' //Módulo para que funcione formulario
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ArticlesComponent } from './components/articles/articles.component';
+import { ArticleComponent } from './components/article/article.component';
+import { SearchComponent } from './components/search/search.component';
+
 
 
 @NgModule({
@@ -37,13 +42,17 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     PaginaComponent,
     ErrorComponent,
     PeliculaComponent,
-    EsParPipe
+    EsParPipe,
+    ArticlesComponent,
+    ArticleComponent,
+    SearchComponent
   ],
   imports: [         //Módulos que cargamos de Angular
     BrowserModule,
     routing,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MomentModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

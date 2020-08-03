@@ -137,7 +137,7 @@ var controller = {
             }
 
             //Devolverlo en Json
-            return res.status(404).send({
+            return res.status(200).send({
                 status: 'success',
                 article
             });

@@ -218,6 +218,7 @@ body{
     transition: 300ms all;
     border: none;
     cursor: pointer;
+    text-align: center;
 }
 
 .btn-success{
@@ -227,6 +228,29 @@ body{
 .btn-success:hover{
     background: #444;
 }
+
+.btn-warning{
+    background: #cea211;
+    color: white !important;
+    text-decoration: none;
+}
+
+.btn-danger{
+    background: #dd0c0c;
+    color: white !important;
+    text-decoration: none;
+}
+
+.btn-warning:hover,
+.btn-danger:hover{
+    transition: all 300ms;
+    opacity: 0.8;
+}
+
+.buttoms{
+    margin-top: 30px;
+}
+
 
 .mid-form{
     width: 50%;

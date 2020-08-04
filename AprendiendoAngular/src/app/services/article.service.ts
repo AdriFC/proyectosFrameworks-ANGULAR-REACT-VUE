@@ -39,4 +39,12 @@ export class ArticleService {
         return this._http.get(this.url+'search/'+searchString);
     }
 
+    create(article):Observable<any>{
+        let params = JSON.stringify(article);
+        let headers = new HttpHeaders().set('Content-Type','application/json');
+
+        //Petición AJAX
+        return this._http.post(this.url+'save', params, {headers:headers});
+    }
+
 }

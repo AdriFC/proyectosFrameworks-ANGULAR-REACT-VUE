@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Article } from '../../models/article';
@@ -6,21 +5,18 @@ import { ArticleService } from '../../services/article.service';
 import { Global } from '../../services/global';
 
 @Component({
-  selector: 'app-article-new',
-  templateUrl: './article-new.component.html',
-  styleUrls: ['./article-new.component.css'],
+  selector: 'app-article-edit',
+  templateUrl: '../article-new/article-new.component.html',
+  styleUrls: ['./article-edit.component.css'],
   providers: [ArticleService]
 })
-export class ArticleNewComponent implements OnInit {
-
-  public user;
-  public title;
-  public is_edit;
-
+export class ArticleEditComponent implements OnInit {
 
   public article: Article;
   public status: string;
+  public is_edit: boolean;
   public page_title: string;
+  public url: string;
 
   //Configuración del upload image https://www.npmjs.com/package/angular-file-uploader
   afuConfig = {
@@ -28,7 +24,7 @@ export class ArticleNewComponent implements OnInit {
     formatsAllowed: ".jpg,.png, .gif, .jpeg",
     maxSize: "50",
     uploadAPI: {
-      url: Global.url+'upload-image'
+      url: Global.url + 'upload-image'
     },
     theme: "attachPin",
     hideProgressBar: true,
@@ -53,19 +49,22 @@ export class ArticleNewComponent implements OnInit {
     private _articleService: ArticleService
   ) {
     this.article = new Article('', '', '', null, null);
-    this.page_title = 'Crear artículo';
+    this.is_edit = true;
+    this.page_title = 'Editar artículo';
+    this.url = Global.url;
   }
 
   ngOnInit(): void {
+    this.getArticle();
   }
 
   onSubmit() {
-    this._articleService.create(this.article).subscribe(
+    this._articleService.update(this.article._id, this.article).subscribe(
       response => {
         if (response.status == 'success') {
           this.status = 'success';
           this.article = response.article;
-          this._router.navigate(['/blog']);
+          this._router.navigate(['/blog/articulo', this.article._id]);
         } else {
           this.status = 'error';
         }
@@ -79,6 +78,26 @@ export class ArticleNewComponent implements OnInit {
 
   imageUpload(data){ 
     this.article.image = data.body.image;
+  }
+
+  getArticle(){
+    this._route.params.subscribe(params => {
+      let id = params ['id'];
+
+      this._articleService.getArticle(id).subscribe(
+        response => {
+          if(response.article){
+            this.article = response.article;
+          }else{
+            this._router.navigate(['/home']);
+          }
+        },
+        error => {
+          console.log(error);
+          this._router.navigate(['/home']);
+        }
+      );
+    });
   }
 
 }

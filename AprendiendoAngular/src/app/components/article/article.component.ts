@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Global } from '../../services/global';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-article',
@@ -41,6 +42,39 @@ export class ArticleComponent implements OnInit {
         }
       );
     });
+    
+  }
+
+  delete(id){
+
+    //Alerta
+    swal({
+      title: "¿Estás seguro?",
+      text: "Una vez borrado no podrás recuperarlo!",
+      icon: "warning",
+      buttons: [true, true],
+      dangerMode: true
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        this._articleService.delete(id).subscribe(
+          response => {
+            swal("El artículo ha sido borrado!", {
+              icon: "success",
+            });
+            this._router.navigate(['/blog']);
+          },
+          error => {
+            console.log(error);
+            this._router.navigate(['/blog']);
+          }
+        );
+        
+      } else {
+        swal("Tranquilo, nada se ha borrado!");
+      }
+    });
+
     
   }
 

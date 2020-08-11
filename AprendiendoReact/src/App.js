@@ -1,27 +1,31 @@
 //Componente principal
 
-import React from 'react';
-import logo from './assets/images/logo.svg';
-import './assets/css/App.css';
+import React from "react";
+import "./assets/css/App.css";
 
 //Importar componentes
-import MiComponente from './components/MiComponente';
-import Peliculas from './components/Peliculas';
+
+import Header from "./components/Header";
+import Slider from "./components/Slider";
+import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
+import SeccionPruebas from "./components/SeccionPruebas";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hola bienvenido al curso de React
-        </p>
-        <section className="componentes">
-        <MiComponente/>
-        <Peliculas/>
-      </section>
-      </header>
-      
+      <Header />
+
+      <Slider />
+
+      <div className="center">
+
+        <SeccionPruebas />
+        <Sidebar />
+
+      </div> {/* End div center */}
+      <div className="clearfix"></div>
+      <Footer />
     </div>
   );
 }

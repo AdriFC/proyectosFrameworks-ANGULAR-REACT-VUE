@@ -71,7 +71,8 @@ class Peliculas extends Component {
         <p>
           <button onClick={this.cambiarTitulo}>
             Cambiar título deep blue sea
-          </button>
+          </button> 
+          
         </p>
 
         {this.state.favorita.titulo ? (

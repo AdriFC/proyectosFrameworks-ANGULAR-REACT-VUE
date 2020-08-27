@@ -1,54 +1,98 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import Moment from "react-moment";
+import "moment/locale/es";
+import Global from "../Global";
+import imageDefault from "../assets/images/no-image.jpg";
 
-class Articles extends Component{
+class Articles extends Component {
+    url = Global.url;
 
     state = {
         articles: [],
-        status: null
+        status: null,
+    };
+
+    componentWillMount() {
+        var home = this.props.home;
+
+        if(home === 'true'){
+            this.getLastArticles();
+        }else{
+            this.getArticles();
+        }
+
+        
     }
 
-    componentWillMount(){
-        this.getArticles();
-    }
+    getLastArticles = () => {
+        axios.get(this.url + "articles/last").then((res) => {
+            this.setState({
+                articles: res.data.articles,
+                status: "success",
+            });
+        });
+    };
 
     getArticles = () => {
-        axios.get("http://localhost:3900/api/articles")
-            .then( res => {
-
-                this. setState({
-                    articles: res.data.articles,
-                    status: 'success'
-                });
-                console.log(this.state);
+        axios.get(this.url + "articles").then((res) => {
+            this.setState({
+                articles: res.data.articles,
+                status: "success",
             });
-    }
+        });
+    };
 
-    render(){
+    render() {
 
-        if(this.state.articles.length >=1){
+        if (this.state.articles.length >= 1) {
+            var listArticles = this.state.articles.map((article) => {
+                return (
+                    <article className="article-item" id="article-template">
+                        <div className="image-wrap">
+                            {
+                                article.image !== null ? (
+                                    <img src={this.url + "get-image/" + article.image} alt={article.title}></img>
+                                ) : (
+                                    <img src={imageDefault} alt={article.title}></img>
+                                )
+                            }
+
+                        </div>
+
+                        <h2>{article.title}</h2>
+
+                        <span className="date">
+                            <Moment locale ="es" fromNow>{article.date}</Moment>
+                        </span>
+                        <Link to={'/blog/articulo/'+article._id}>Leer más</Link>
+
+                        <div className="clearfix"></div>
+                    </article>
+                );
+            });
+
+            return <div id="articles">{listArticles}</div>;
+
+        } else if (
+            this.state.articles.length === 0 &&
+            this.state.status === "success"
+        ) {
             return (
                 <div id="articles">
-                    <h1>Listado de artículos</h1>
-                </div>
-            );
-        }else if(this.state.articles.length === 0 && this.state.status === 'success'){
-            return (
-                <div id="articles">
-                    <h2 className= "subheader">No hay artículos para mostrar</h2>
+                    <h2 className="subheader">No hay artículos para mostrar</h2>
                     <p>Todavia no hay contenido en esta sección</p>
                 </div>
             );
-        }else{
+        } else {
             return (
                 <div id="articles">
-                    <h2 className= "subheader">Cargando...</h2>
+                    <h2 className="subheader">Cargando...</h2>
                     <p>Espere mientras carga el contenido</p>
                 </div>
             );
         }
-
-        
     }
 }
 

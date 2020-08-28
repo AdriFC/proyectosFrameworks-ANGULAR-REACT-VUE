@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Slider from "./Slider";
 import Sidebar from "./Sidebar";
 
 class Blog extends Component {
@@ -69,7 +68,7 @@ class Blog extends Component {
             {/** Crear un formulario */}
 
             <form className="mid-form" onSubmit={this.recibirFormulario} onChange={this.recibirFormulario}>
-              <div class="form-group">
+              <div className="form-group">
                 <label htmlFor="nombre">Nombre</label>
                 <input type="text" name="nombre" ref={this.nombreRef} />
               </div>
@@ -108,7 +107,7 @@ class Blog extends Component {
                 Otro
               </div>
               <div className="clearfix"></div>
-              <input type="submit" value="Enviar" class="btn btn-success" />
+              <input type="submit" value="Enviar" className="btn btn-success" />
             </form>
           </div>
           <Sidebar blog="false" />

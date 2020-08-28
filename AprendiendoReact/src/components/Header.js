@@ -40,7 +40,7 @@ class Header extends Component {
           </nav>
 
           {/*LIMPIAR FLOTADOS*/}
-          <div classNameName="clearfix"></div>
+          <div className="clearfix"></div>
         </div>
       </header>
     );

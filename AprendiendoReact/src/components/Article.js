@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
 import Global from "../Global";
 import Sidebar from "./Sidebar";
@@ -15,7 +15,7 @@ class Article extends Component {
         status: null,
     };
 
-    componentWillMount() {
+    componentDidMount() {
         this.getArticle();
     }
 
@@ -35,7 +35,23 @@ class Article extends Component {
         });
     };
 
+    deleteArticle = (id) => {
+        axios.delete(this.url + 'article/' + id)
+            .then( res => {
+
+                this.setState({
+                    article: res.data.article,
+                    status: 'deleted'
+                });
+            });
+    }
+
     render() {
+
+        if(this.state.status === 'deleted'){
+            return <Redirect to="/blog" />
+        }
+
         var article = this.state.article;
         return (
             <div className="center">
@@ -60,8 +76,14 @@ class Article extends Component {
                                {article.content}
                             </p>
                             
-                            <a href="#" className="btn btn-danger">Eliminar</a>
-                            <a href="#" className="btn btn-warning">Editar</a>
+                            <button onClick={
+                                () => {
+                                    this.deleteArticle(article._id)
+                                }
+                            } 
+                            className="btn btn-danger">Eliminar</button>
+                            
+                            <button className="btn btn-warning">Editar</button>
 
                             <div className="clearfix"></div>
                         </article>

@@ -55,7 +55,7 @@ class Router extends Component {
                         path="/pruebas/:nombre/:apellidos?"
                         render={(props) => {
                             var nombre = props.match.params.nombre;
-                            var apellidos = props.match.params.apellidos;
+                            
 
                             return (
                                 <div id="content">

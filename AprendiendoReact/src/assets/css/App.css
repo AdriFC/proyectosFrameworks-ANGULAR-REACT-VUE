@@ -197,6 +197,19 @@ body{
   background: #444;
 }
 
+.btn-danger{
+  background: rgb(253, 0, 0) !important;
+  color: white !important;
+  float: left;
+  margin-right: 20px;
+}
+
+.btn-warning{
+  background: rgb(209, 145, 7) !important;
+  color: white !important;
+  float: left;
+}
+
 .mid-form{
   width: 50%;
   margin: 0px auto;
@@ -212,7 +225,8 @@ body{
 }
 
 input[type="text"],
-textarea{
+textarea,
+input[type="file"]{
   width: 100%;
   min-height: 30px;
   border: 1px solid #ccc;
@@ -233,6 +247,10 @@ textarea{
   max-width: 100%;
   min-height: 150px;
   max-height: 300px;
+}
+
+input[type="submit"]{
+  margin-top: 15px;
 }
 
 .radiobuttons{

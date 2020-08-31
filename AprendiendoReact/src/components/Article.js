@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
+import swall from 'sweetalert';
 import Global from "../Global";
 import Sidebar from "./Sidebar";
 import Moment from "react-moment";
@@ -36,14 +37,38 @@ class Article extends Component {
     };
 
     deleteArticle = (id) => {
-        axios.delete(this.url + 'article/' + id)
-            .then( res => {
 
-                this.setState({
-                    article: res.data.article,
-                    status: 'deleted'
+        swall({
+            title: "¿Estás seguro?",
+            text: "Borrarás permanentemente tu artículo",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                axios.delete(this.url + 'article/' + id)
+                .then( res => {
+    
+                    this.setState({
+                        article: res.data.article,
+                        status: 'deleted'
+                    });
+    
+                    swall(
+                        'Artículo borrado',
+                        'El artículo ha sido borrado correctamente',
+                        'success'
+                      );
                 });
-            });
+            } else {
+                swall(
+                    'Tranquilo!!',
+                    'No se ha borrado nada',
+                    'success'
+                  );
+            }
+          });
     }
 
     render() {
@@ -83,7 +108,7 @@ class Article extends Component {
                             } 
                             className="btn btn-danger">Eliminar</button>
                             
-                            <button className="btn btn-warning">Editar</button>
+                            <Link to={"/blog/editar/" + article._id} className="btn btn-warning">Editar</Link>
 
                             <div className="clearfix"></div>
                         </article>

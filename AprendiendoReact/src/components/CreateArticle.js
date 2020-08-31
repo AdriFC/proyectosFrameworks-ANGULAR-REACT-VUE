@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Link, Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import SimpleReactValidator from "simple-react-validator";

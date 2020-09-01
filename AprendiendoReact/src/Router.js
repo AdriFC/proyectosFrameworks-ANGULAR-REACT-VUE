@@ -22,7 +22,6 @@ class Router extends Component {
 
                 <Header />
 
-
                 {/* CONFIGURAR RUTAS Y PÁGINAS */}
                 <Switch>
                     <Route exact path="/" component={Home} />
@@ -58,7 +57,6 @@ class Router extends Component {
                         render={(props) => {
                             var nombre = props.match.params.nombre;
                             
-
                             return (
                                 <div id="content">
                                     <h1 className="subheader">Página de pruebas</h1>
@@ -70,8 +68,6 @@ class Router extends Component {
 
                     <Route component={Error} />
                 </Switch>
-
-
 
                 <div className="clearfix"></div>
 

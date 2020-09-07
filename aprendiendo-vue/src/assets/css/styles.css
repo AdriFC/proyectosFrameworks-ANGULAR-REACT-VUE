@@ -89,6 +89,22 @@ body{
     transition: 300ms all;
 }
 
+.yeargreen{
+    background: green !important;
+    color: white !important;
+    padding: 10px !important;
+    width: 65px !important;
+    text-align: center !important;
+}
+
+.yearRed{
+    background: red !important;
+    color: white !important;
+    padding: 10px !important;
+    width: 65px !important;
+    text-align: center !important;
+}
+
 #menu a:hover,
 #menu .active{
     color: rgb(0, 255, 55);

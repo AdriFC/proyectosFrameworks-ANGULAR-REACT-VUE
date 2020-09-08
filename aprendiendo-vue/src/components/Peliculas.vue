@@ -10,7 +10,7 @@
         <!--LISTADO ARTÍCULOS-->
         <div id="articles">
           
-          <div v-for="pelicula in peliculas" v-bind:key="pelicula.title">
+          <div v-for="pelicula in peliculasMayuscula" v-bind:key="pelicula.title">
             <Pelicula
              :pelicula="pelicula"
              @favorita="haLlegadoPeliculaFavorita"
@@ -40,6 +40,20 @@ export default {
       this.favorita = favorita;
     }
   },
+  filters: {
+    mayusculas(value){
+      return value.toUpperCase();
+    }
+  },
+  computed: {
+    peliculasMayuscula(){
+      var peliculasMod = this.peliculas;
+      for (var i = 0; i<this.peliculas.length; i++){
+        peliculasMod[i].title = peliculasMod[i].title.toUpperCase();
+      }
+      return peliculasMod;
+    }
+  },
   data() {
     return {
       favorita: null,
@@ -47,13 +61,13 @@ export default {
         {
           title: "Titanic",
           year: 1997,
-          image: "https://pics.filmaffinity.com/Titanic-321994924-large.jpg",
+          image: "https://cdn.shopify.com/s/files/1/1416/8662/products/titanic_1997_french_advance_original_film_art_5000x.jpg?v=1569070569",
         },
         {
           title: "La comunidad",
           year: 2000,
           image:
-            "https://pics.filmaffinity.com/La_comunidad-194113063-large.jpg",
+            "https://i.pinimg.com/originals/d8/c0/38/d8c038b652959be4ff5c49074552443c.jpg",
         },
         {
           title: "Groove",

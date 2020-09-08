@@ -6,20 +6,7 @@
         <h2 class="subheader">últimos artículos</h2>
         <!--LISTADO ARTÍCULOS-->
         <div id="articles">
-          <article class="article-item" id="article-template">
-            <div class="image-wrap">
-              <img
-                src="https://media.tacdn.com/media/attractions-content--1x-1/0a/b0/c9/b4.jpg"
-                alt="Toronto"
-              />
-            </div>
-            <h2>Artículo de prueba</h2>
-            <span class="date">Hace 5 minutos</span>
-            <a href="#">Leer más</a>
-            <div class="clearfix"></div>
-          </article>
-
-          <!--AÑADIR ARTÍCULOS VIA JS-->
+          <Articles v-bind:articles="articles"></Articles>
         </div>
       </section>
       <Sidebar></Sidebar>
@@ -29,13 +16,36 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Slider from "./Slider.vue";
 import Sidebar from "./Sidebar.vue";
+import Articles from './Articles.vue';
+import Global from '../Global';
 export default {
   name: "LastArticles",
   components: {
     Slider,
-    Sidebar
+    Sidebar,
+    Articles
+  },
+  mounted() {
+    this.getLastArticles();
+  },
+  data(){
+    return{
+      url: Global.url,
+      articles: []
+    };
+  },
+  methods: {
+    getLastArticles() {
+      axios.get(this.url+"articles/true").then((res) => {
+        if (res.data.status == "success") {
+          this.articles = res.data.articles;
+          console.log(this.articles);
+        }
+      });
+    },
   }
 };
-</script>>
+</script>

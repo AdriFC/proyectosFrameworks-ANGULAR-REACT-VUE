@@ -7,18 +7,18 @@
           <img :src="url+'get-image/'+article.image" :alt="article.title" v-if="article.image" />
           <img src="../assets/images/no-image.jpg" :alt="article.title" v-if="!article.image" />
         </div>
-        <h2>{{article.title}}</h2>
-        <span class="date">{{article.date}}</span>
+
+        <h2>
+          <router-link :to="{name: 'article', params: {id: article._id}}">{{article.title}}</router-link>
+        </h2>
+
+        <span class="date">{{article.date | moment("from", "now") }}</span>
         <a href="#">Leer más</a>
         <div class="clearfix"></div>
       </article>
     </div>
-    <div v-else-if="articles && articles.length < 1">
-      No hay artículos para mostrar
-    </div>
-    <div v-else>
-      Cargando...
-    </div>
+    <div v-else-if="articles && articles.length < 1">No hay artículos para mostrar</div>
+    <div v-else>Cargando...</div>
   </section>
 </template>
 

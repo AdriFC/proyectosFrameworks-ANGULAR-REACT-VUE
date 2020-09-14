@@ -1,6 +1,5 @@
 <template>
   <div class="general">
-    
     <div class="center">
       <section id="content">
         <article class="article-item article-detail" v-if="article">
@@ -27,35 +26,58 @@
 </template>
 
 <script>
-
-import Sidebar from './Sidebar.vue';
-import Global from '../Global';
-import axios from 'axios';
+import Sidebar from "./Sidebar.vue";
+import Global from "../Global";
+import axios from "axios";
+import swal from "sweetalert";
 
 export default {
-    name: 'Article',
-    components: {
-        
-        Sidebar
-    },
-    data(){
-        return{
-            url: Global.url,
-            article: null
+  name: "Article",
+  components: {
+    Sidebar,
+  },
+  data() {
+    return {
+      url: Global.url,
+      article: null,
+    };
+  },
+  mounted() {
+    var articleId = this.$route.params.id;
+    this.getArticle(articleId);
+  },
+  methods: {
+    getArticle(articleId) {
+      axios.get(this.url + "article/" + articleId).then((res) => {
+        if (res.data.status == "success") {
+          this.article = res.data.article;
         }
+      });
     },
-    mounted(){
-        var articleId = this.$route.params.id;
-        this.getArticle(articleId);
-    },
-    methods: {
-        getArticle(articleId){
-            axios.get(this.url + 'article/' + articleId).then (res => {
-                if(res.data.status == 'success'){
-                    this.article = res.data.article;
-                }
-            });
+    deleteArticle(articleId) {
+      
+      swal({
+        title: "¿Estás seguro de borrar el artículo?",
+        text:
+          "Si lo borras no podrás recuperarlo!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(willDelete => {
+        if (willDelete) {
+          axios.delete(this.url + "article/" + articleId).then(response => {
+            swal(
+              "Artículo borrado",
+              "El artículo se ha borrado correctamente",
+              "success"
+            );
+            this.$router.push("/blog");
+          });
+        } else {
+          swal("Todo correcto, no has borrado nada!!");
         }
+      });
     }
-}
+  }
+};
 </script>

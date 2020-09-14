@@ -51,13 +51,14 @@ export default {
         },
     save() {
       this.submited = true;
+      var articleId = this.$route.params.id;
 
       this.$v.$touch();
       if (this.$v.$invalid) {
         return false;
       } else {
         axios
-          .post(this.url + "save", this.article)
+          .put(this.url + "article/" + articleId, this.article)
           .then((response) => {
             if (response.data.status == "success") {
               //Subida del archivo
@@ -75,16 +76,16 @@ export default {
                   .then((response) => {
                     if (response.data.article) {
                       swal(
-                        "Artículo creado",
-                        "El artículo se ha creado correctamente",
+                        "Artículo editado",
+                        "El artículo se ha editado correctamente",
                         "success"
                       );
                       this.article = response.data.article;
-                      this.$router.push("/blog");
+                      this.$router.push("/articulo/"+this.article._id);
                     } else {
                       swal(
-                        "Artículo no creado",
-                        "El artículo no se ha creado correctamente",
+                        "Artículo no editado",
+                        "El artículo no se ha editado correctamente",
                         "error"
                       );
                       this.article = response.data.article;
@@ -96,12 +97,12 @@ export default {
                   });
               } else {
                 swal(
-                  "Artículo creado",
-                  "El artículo se ha creado correctamente",
+                  "Artículo editado",
+                  "El artículo se ha editado correctamente",
                   "success"
                 );
                 this.article = response.data.article;
-                this.$router.push("/blog");
+                this.$router.push("/articulo/"+this.article._id);
               }
             }
           })

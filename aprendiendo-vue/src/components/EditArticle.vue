@@ -9,7 +9,7 @@ import { required } from "vuelidate/lib/validators";
 import swal from "sweetalert";
 
 export default {
-  name: "CreateArticle",
+  name: "EditArticle",
   components: {
     Sidebar,
   },
@@ -19,6 +19,7 @@ export default {
       file: "",
       article: new Article("", "", null, ""),
       submited: false,
+      isEdit: true
     };
   },
   validations: {
@@ -33,12 +34,21 @@ export default {
   },
   mounted() {
     //console.log(this.article);
+    var articleId = this.$route.params.id;
+    this.getArticle(articleId);
   },
   methods: {
     fileChange() {
       this.file = this.$refs.file.files[0];
       console.log(this.file);
     },
+    getArticle(articleId){
+            axios.get(this.url + 'article/' + articleId).then (res => {
+                if(res.data.status == 'success'){
+                    this.article = res.data.article;
+                }
+            });
+        },
     save() {
       this.submited = true;
 

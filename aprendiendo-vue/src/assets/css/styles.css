@@ -223,8 +223,24 @@ body{
     background: #3cb2d3;
 }
 
+.btn-warning{
+    background: #d18b0a;
+    color: white !important;
+    text-align: center;
+}
+
+.btn-danger{
+    background: #b81111;
+    color: white !important;
+    text-align: center;
+}
+
 .btn-success:hover{
     background: #444;
+}
+
+.image-small{
+    width: 100px;
 }
 
 .mid-form{

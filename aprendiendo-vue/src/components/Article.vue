@@ -16,6 +16,8 @@
           <span class="date">{{article.date | moment("from", "now")}}</span>
           <p>{{article.content}}</p>
           <div class="clearfix"></div>
+          <router-link :to="'/editar/'+article._id" class="btn btn-warning">Editar</router-link>
+          <router-link to="/eliminar" class="btn btn-danger">Eliminar</router-link>
         </article>
       </section>
       <Sidebar></Sidebar>
